@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <h1>Account Balance</h1>
+    <p>Your balance is: {{ balance }}</p>
+    <form action="/withdraw" method="get">
+        <input type="hidden" name="conta" value="{{ request.args.get('conta') }}">
+        <button type="submit">Withdraw</button>
+    </form>
+    <form action="/transfer" method="get">
+        <input type="hidden" name="conta_origem" value="{{ request.args.get('conta') }}">
+        <button type="submit">Transfer</button>
+    </form>
+</body>
+</html>

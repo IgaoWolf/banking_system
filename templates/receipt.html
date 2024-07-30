@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Receipt</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <h1>Transfer Receipt</h1>
+    <p>Transfer successful!</p>
+    <p><strong>From Account:</strong> {{ conta_origem }}</p>
+    <p><strong>To Account:</strong> {{ conta_destino }}</p>
+    <p><strong>Amount Transferred:</strong> {{ valor }}</p>
+    <a href="/balance?conta={{ conta_origem }}">Back to Balance</a>
+</body>
+</html>
