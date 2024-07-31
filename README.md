@@ -1,3 +1,6 @@
+## Sistema totalmente funcional, podendo realizar transferencia entre contas existentes no banco de dados. Resgate no caixa eletronico. Também é possivel criar novas contas.
+Sistema está consumindo um banco de dados mariadb, também está utilizando python e alguns pacotes, inclusive está rodando um nginx para acesso via webbrowser.
+
 ## 1. Atualizar o Sistema
 
 Primeiro, atualize seu sistema para garantir que você tenha as últimas atualizações e pacotes:
