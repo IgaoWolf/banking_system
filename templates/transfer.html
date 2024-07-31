@@ -23,9 +23,9 @@
 <body>
     <h1>Transfer Funds</h1>
     <form action="/transfer" method="post">
-        <label for="conta_origem">From Account:</label>
-        <input type="text" id="conta_origem" name="conta_origem" required>
-        <br>
+        <!-- Remover o campo conta_origem pois será obtida da sessão -->
+        <!-- <label for="conta_origem">From Account:</label>
+        <input type="text" id="conta_origem" name="conta_origem" required> -->
         <label for="conta_destino">To Account:</label>
         <input type="text" id="conta_destino" name="conta_destino" required>
         <br>
