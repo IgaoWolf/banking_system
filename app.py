@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for, session
 import mysql.connector
+import random
+import string
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Substitua pelo seu segredo
@@ -12,6 +14,9 @@ def get_db_connection():
         database='banking'
     )
     return conn
+
+def generate_account_number():
+    return ''.join(random.choices(string.digits, k=10))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -31,26 +36,32 @@ def login():
             return jsonify({'error': 'Invalid credentials'}), 401
     return render_template('login.html')
 
-@app.route('/create_account', methods=['GET', 'POST'])
+@app.route('/create_account', methods=['POST'])
 def create_account():
-    if request.method == 'POST':
-        cpf = request.form['cpf']
-        nome = request.form['nome']
-        sobrenome = request.form['sobrenome']
-        email = request.form['email']
-        telefone = request.form['telefone']
-        senha = request.form['senha']
+    try:
+        data = request.json
+        cpf = data['cpf']
+        nome = data['nome']
+        sobrenome = data['sobrenome']
+        email = data['email']
+        telefone = data['telefone']
+        senha = data['senha']
+        conta = generate_account_number()
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-            'INSERT INTO usuarios (cpf, nome, sobrenome, email, telefone, senha) VALUES (%s, %s, %s, %s, %s, %s)',
-            (cpf, nome, sobrenome, email, telefone, senha)
+            'INSERT INTO usuarios (conta, cpf, nome, sobrenome, email, telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)',
+            (conta, cpf, nome, sobrenome, email, telefone, senha)
         )
         conn.commit()
         cursor.close()
         conn.close()
-        return jsonify({'message': 'Account created successfully'}), 201
-    return render_template('create_account.html')
+        return jsonify({'message': 'Account created successfully', 'conta': conta}), 201
+    except KeyError as e:
+        return jsonify({'error': f'Missing data: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/balance', methods=['GET'])
 def get_balance():
