@@ -24,3 +24,12 @@ CREATE TABLE contas (
 
 INSERT INTO contas (conta, saldo, usuario_id)
 VALUES ('12345', 1000.00, 1);
+
+## Ajuste para teste de criação de usuários utilizando o mesmo cpf
+
+SELECT cpf, COUNT(*)
+FROM usuarios
+GROUP BY cpf
+HAVING COUNT(*) > 1;
+
+ALTER TABLE usuarios ADD UNIQUE (cpf);
